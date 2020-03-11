@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tasks Index</title>
+    <style media="screen">
+      .task {
+        margin: 5px;
+      }
+      .task h3 {
+        margin: inherit;
+      }
+      .task p {
+        margin: inherit;
+        text-indent: 20px;
+      }
+
+      .links {
+        font-size: 12px;
+        margin: 5px;
+      }
+      .links p {
+        margin: inherit;
+      }
+
+      a {
+        text-decoration: none;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>All tasks</h1>
+
+    <% @tasks.each do |task| %>
+      <div class="task">
+        <h3><a href="/tasks/<%= task.id %>"><%= task.title %></a></h3>
+        <p> <%= task.description %></p>
+        <form action="/tasks/<%= task.id %>" method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="_method" value="delete">
+          <input style="cursor:alias" type="submit" value="Delete">
+        </form><br/>
+      </div>
+    <% end %>
+
+    <div class="links">
+      <p><a href="/tasks/new">New Task</a></p>
+      <p><a href="/">Homepage</a></p>
+    </div>
+  </body>
+</html>
